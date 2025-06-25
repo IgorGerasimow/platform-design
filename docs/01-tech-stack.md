@@ -1,0 +1,3 @@
+# Tech Stack
+
+This document outlines the core technologies used in the platform...
