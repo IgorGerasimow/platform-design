@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bootstrap-applicationset
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              repoURL: git@github.com:your-org/platform-design.git
+              revision: HEAD
+              directories:
+                - path: apps/*
+                  exclude: true
+                - path: apps/*/*
+                - path: apps/*/*-kustomize
+                  exclude: true
+          - clusters:
+              selector: {}
+              values:
+                env: '{{metadata.labels.env}}'
+                cluster: '{{metadata.labels.cluster}}'
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:your-org/platform-design.git
+        targetRevision: HEAD
+        path: '{{path}}'
+        helm:
+          ignoreMissingValueFiles: true
+          valueFiles:
+            - '../../../apps/{{path[1]}}/{{path.basename}}/values.yaml'
+            - '../../../envs/{{values.env}}/values/{{path[1]}}/{{path.basename}}.yaml'
+            - '../../../envs/{{values.env}}/{{values.cluster}}/{{path[1]}}/{{path.basename}}.yaml'
+          values: |
+            environment: "{{values.env}}"
+            cluster: "{{values.cluster}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{values.env}}-{{path[1]}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
