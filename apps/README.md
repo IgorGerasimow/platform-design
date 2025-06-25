@@ -5,6 +5,7 @@ This directory stores Helm charts used by ArgoCD's ApplicationSet to deploy serv
 ## Structure
 
 - `infra/` – infrastructure tools deployed to clusters
+- `infra/external-secrets/` – installs the External Secrets Operator
 - `direct/` – applications for the Direct team stack
 - `mono/` – applications for the Mono team stack
 - `protocols/` – protocol-related services

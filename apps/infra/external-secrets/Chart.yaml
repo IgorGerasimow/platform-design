@@ -1,0 +1,11 @@
+apiVersion: v2
+name: external-secrets
+description: Install the External Secrets Operator using the official chart
+version: 0.18.0
+appVersion: "v0.18.0"
+type: application
+
+dependencies:
+  - name: external-secrets
+    version: "^0"
+    repository: https://charts.external-secrets.io
