@@ -34,6 +34,8 @@ This repository contains documentation and reference configurations for a casino
 
 - `docs/` – platform documentation
 - `services/example-api/` – simple API in Go with healthcheck
+- `apps/` – Helm charts for applications deployed via ArgoCD. Infrastructure
+  components such as the External Secrets Operator reside under `apps/infra/`.
 - `terraform/`, `helm/`, `kustomize/`, `argocd/` – infrastructure and deployment files
 - `helm/app/` – generic Helm chart for deploying applications with ingress and external secrets
 - `argocd/applicationset.yaml` – example ApplicationSet manifest for ArgoCD
