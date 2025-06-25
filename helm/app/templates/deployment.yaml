@@ -2,32 +2,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "app.fullname" . }}
+  name: {{include "app.fullname" .}}
   labels:
-    {{- include "app.selectorLabels" . | nindent 4 }}
-    {{- with .Values.labels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+    {{- include "app.selectorLabels" . | nindent 4}}
+    {{- with .Values.labels}}
+      {{- toYaml . | nindent 4}}
+    {{- end}}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{.Values.replicaCount}}
   selector:
     matchLabels:
-      {{- include "app.selectorLabels" . | nindent 6 }}
+      {{- include "app.selectorLabels" . | nindent 6}}
   template:
     metadata:
       labels:
-        {{- include "app.selectorLabels" . | nindent 8 }}
+        {{- include "app.selectorLabels" . | nindent 8}}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: {{.Chart.Name}}
+          image: "{{.Values.image.repository}}:{{.Values.image.tag | default .Chart.AppVersion}}"
+          imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
-          {{- if .Values.externalSecrets.enabled }}
+          {{- if .Values.externalSecrets.enabled}}
           envFrom:
             - secretRef:
-                name: {{ include "app.fullname" . }}-secrets
-          {{- end }}
+                name: {{include "app.fullname" .}}-secrets
+          {{- end}}
