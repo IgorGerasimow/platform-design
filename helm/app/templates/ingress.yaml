@@ -1,0 +1,43 @@
+{{- if .Values.ingress.enabled }}
+{{- $fullName := include "app.fullname" . }}
+{{- $svcPort := .Values.service.port }}
+{{- $classes := append (list .Values.ingress.className) .Values.ingress.extraClasses }}
+{{- range $i, $class := $classes }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}{{- if gt $i 0 }}-{{ $class }}{{- end }}
+  annotations:
+    {{- with $.Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  ingressClassName: {{ $class }}
+  rules:
+  {{- range $.Values.ingress.hosts }}
+    - host: {{ .host }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPort }}
+        {{- end }}
+  {{- end }}
+  {{- if $.Values.ingress.tls }}
+  tls:
+  {{- range $.Values.ingress.tls }}
+    - secretName: {{ .secretName }}
+      hosts:
+      {{- range .hosts }}
+        - {{ . }}
+      {{- end }}
+  {{- end }}
+  {{- end }}
+---
+{{- end }}
+{{- end }}
