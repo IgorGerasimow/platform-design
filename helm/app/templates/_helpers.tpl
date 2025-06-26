@@ -1,3 +1,4 @@
+---
 {{- define "app.name" -}}
 {{- default .Chart.Name .Values.nameOverride -}}
 {{- end -}}

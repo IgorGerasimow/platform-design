@@ -1,0 +1,24 @@
+name: Helm Chart Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  kubeval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+      - name: Install kubeval
+        run: |
+          curl -Lo kubeval.tar.gz https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+          tar -xzf kubeval.tar.gz
+          sudo mv kubeval /usr/local/bin/
+      - name: Validate Helm charts
+        run: |
+          for chart in $(find . -name Chart.yaml -exec dirname {} ';'); do
+            helm template "$chart" | kubeval --strict
+          done
