@@ -12,7 +12,7 @@ dependencies {
 
 inputs = {
   cluster_name    = "${include.local.env}-platform-eks"
-  cluster_version = "1.28"
+  cluster_version = "1.33"
 
   vpc_id             = dependency.vpc.outputs.vpc_id
   private_subnet_ids = dependency.vpc.outputs.private_subnets

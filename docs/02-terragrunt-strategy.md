@@ -63,6 +63,17 @@ terragrunt apply
 
 Terragrunt automatically handles remote state configuration and downloads the Terraform modules.
 
+### Spinning up an environment
+
+From the root of an environment directory you can deploy all components with a single command. For example, to bring up the entire development stack run:
+
+```bash
+cd terragrunt/envs/dev
+terragrunt run-all apply
+```
+
+Terragrunt traverses all child directories and applies them in the correct order based on their defined dependencies.
+
 ## Benefits
 
 - **Modularity** – each environment references the same Terraform modules
