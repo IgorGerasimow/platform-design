@@ -9,8 +9,7 @@ terraform {
 inputs = {
   name     = "${include.local.env}-platform"
   vpc_cidr = "10.0.0.0/16"
-  tags = {
-    Environment = include.local.env
-    ManagedBy   = "terragrunt"
-  }
+  tags = merge(include.local.default_tags, {
+    ManagedBy = "terragrunt"
+  })
 }

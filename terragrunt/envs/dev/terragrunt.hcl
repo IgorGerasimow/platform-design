@@ -4,4 +4,8 @@ include {
 
 locals {
   env = "dev"
+
+  default_tags = merge(include.locals.default_tags, {
+    Environment = "dev"
+  })
 }

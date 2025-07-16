@@ -28,6 +28,30 @@ variable "cluster_version" {
   default     = "1.33"
 }
 
+variable "environment" {
+  description = "Deployment environment name"
+  type        = string
+  default     = ""
+}
+
+variable "owner" {
+  description = "Resource owner"
+  type        = string
+  default     = ""
+}
+
+variable "ticket" {
+  description = "Tracking ticket reference"
+  type        = string
+  default     = ""
+}
+
+variable "service" {
+  description = "Service name"
+  type        = string
+  default     = ""
+}
+
 variable "tags" {
   description = "Tags to apply"
   type        = map(string)

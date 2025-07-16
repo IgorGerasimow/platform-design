@@ -38,7 +38,8 @@ This repository contains documentation and reference configurations for a casino
   components such as the External Secrets Operator reside under `apps/infra/`.
 - `apps/` – Helm charts for applications deployed via ArgoCD
 - `terraform/`, `helm/`, `kustomize/`, `argocd/` – infrastructure and deployment files
-- `terragrunt/` – Terragrunt configuration linking Terraform modules
+- `terragrunt/` – Terragrunt configuration linking Terraform modules and setting
+  optional default tags (`Environment`, `Owner`, `Ticket`, `Service`)
 - `helm/app/` – generic Helm chart for deploying applications with ingress and external secrets
 - `argocd/applicationset.yaml` – example ApplicationSet manifest for ArgoCD
 

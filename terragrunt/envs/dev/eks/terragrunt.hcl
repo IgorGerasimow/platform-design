@@ -17,8 +17,7 @@ inputs = {
   vpc_id             = dependency.vpc.outputs.vpc_id
   private_subnet_ids = dependency.vpc.outputs.private_subnets
 
-  tags = {
-    Environment = include.local.env
-    ManagedBy   = "terragrunt"
-  }
+  tags = merge(include.local.default_tags, {
+    ManagedBy = "terragrunt"
+  })
 }

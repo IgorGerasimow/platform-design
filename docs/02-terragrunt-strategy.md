@@ -63,6 +63,14 @@ terragrunt apply
 
 Terragrunt automatically handles remote state configuration and downloads the Terraform modules.
 
+### Default tags
+
+The root Terragrunt configuration defines a set of optional default tags
+(`Environment`, `Owner`, `Ticket`, and `Service`). These values can be
+overridden via environment configuration or left blank. When specified, they
+are applied to all AWS resources through the provider `default_tags` block and
+passed to each module via the `tags` input.
+
 ### Spinning up an environment
 
 From the root of an environment directory you can deploy all components with a single command. For example, to bring up the entire development stack run:
